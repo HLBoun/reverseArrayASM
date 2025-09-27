@@ -1,0 +1,121 @@
+Microsoft (R) Macro Assembler Version 14.44.35216.0	    09/27/25 17:45:40
+.\reverseArray.asm					     Page 1 - 1
+
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess PROTO, dwExitCode: DWORD
+
+ 00000000			.data
+ 00000000 0000000A		intArray DWORD 10, 20, 30, 40, 50
+	   00000014
+	   0000001E
+	   00000028
+	   00000032
+ 00000014 00000000		placeHolder DWORD 0
+ 00000018 00000000		leftIterator DWORD 0
+ 0000001C 00000000		firstElement DWORD 0
+ 00000020 00000000		counter DWORD 0
+
+
+ 00000000			.code 
+ 00000000			main PROC 
+
+ 00000000  BE 00000000 R	  mov esi, OFFSET intArray  ; Add the TYPEOF to this to say "next element"
+ 00000005  B9 00000005		  mov ecx, LENGTHOF intArray  ; Gets Length of array EG 5
+ 0000000A  8B C1		  mov eax, ecx
+
+ 0000000C  BA 00000000		  mov edx, 0
+ 00000011  BB 00000002		  mov ebx, 2
+ 00000016  F7 FB		  IDIV ebx
+ 00000018  8B C8		  mov ecx, eax  ; Loop counter
+
+ 0000001A  C7 05 00000020 R	  mov counter, LENGTHOF intArray
+	   00000005
+ 00000024  89 35 0000001C R	  mov firstElement, esi
+ 0000002A  B8 00000000		  mov eax, 0
+ 0000002F  BB 00000000		  mov ebx, 0
+
+ 00000034			Top:
+ 00000034  B8 00000004		  mov eax, TYPE intArray
+ 00000039  8B 1E		  mov ebx, [esi]
+ 0000003B  89 35 00000018 R	  mov leftIterator, esi
+ 00000041  89 1D 00000014 R	  mov placeHolder, ebx
+
+ 00000047  83 2D 00000020 R	  SUB counter, 1
+	   01
+ 0000004E  8B 15 00000020 R	  mov edx, counter
+ 00000054  F7 E2		  MUL edx
+
+ 00000056  8B 35 0000001C R	  mov esi, firstElement
+ 0000005C  03 F0		  ADD esi, eax
+ 0000005E  8B 1E		  mov ebx, [esi]
+ 00000060  A1 00000014 R	  mov eax, placeHolder
+ 00000065  89 06		  mov [esi], eax
+ 00000067  8B 35 00000018 R	  mov esi, leftIterator
+ 0000006D  89 1E		  mov [esi], ebx
+ 0000006F  83 C6 04		  ADD esi, TYPE intArray
+ 00000072  E2 C0		LOOP Top
+
+ 00000074  BE 00000000 R	  mov esi, OFFSET intArray
+ 00000079  8B 06		  mov eax, [esi]
+ 0000007B  83 C6 04		  ADD esi, TYPE intArray
+ 0000007E  8B 1E		  mov ebx, [esi]
+ 00000080  83 C6 04		  ADD esi, TYPE intArray
+ 00000083  8B 0E		  mov ecx, [esi]
+ 00000085  83 C6 04		  ADD esi, TYPE intArray
+ 00000088  8B 16		  mov edx, [esi]
+ 0000008A  83 C6 04		  ADD esi, TYPE intArray
+ 0000008D  8B 3E		  mov edi, [esi]
+				  
+
+				INVOKE ExitProcess, 0
+ 00000096			main ENDP
+				END main 
+Microsoft (R) Macro Assembler Version 14.44.35216.0	    09/27/25 17:45:40
+.\reverseArray.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000024 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000096 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000096 Public STDCALL
+  Top  . . . . . . . . . . . . .	L Near	 00000034 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+counter  . . . . . . . . . . . .	DWord	 00000020 _DATA	
+firstElement . . . . . . . . . .	DWord	 0000001C _DATA	
+intArray . . . . . . . . . . . .	DWord	 00000000 _DATA	
+leftIterator . . . . . . . . . .	DWord	 00000018 _DATA	
+placeHolder  . . . . . . . . . .	DWord	 00000014 _DATA	
+
+	   0 Warnings
+	   0 Errors
