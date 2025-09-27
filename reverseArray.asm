@@ -1,3 +1,9 @@
+; reverseArray.asm
+; Huthsady Legend Boun
+; Professor Grace A. Comp
+; CISP-2410-SVC ASM 
+; 27 September 2025
+; Brief Description: Program that takes an integer array, and reverses it. 
 .386
 .model flat, stdcall
 .stack 4096
